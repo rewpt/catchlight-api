@@ -7,9 +7,17 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 
 // router imports
+const conversationsRouter = require('./routes/conversations');
+const friendsRouter = require('./routes/friends')
 const indexRouter = require('./routes/index');
-const usersRouter = require('./routes/users');
+const interactionsRouter = require('./routes/interactions');
 const mediaRouter = require('./routes/media');
+const messagesRouter = require('./routes/messages');
+const queriesRouter = require('./routes/queries');
+const sessionsRouter = require('./routes/sessions');
+const streamingServicesRouter = require('./routes/streamingServices');
+const streamingSubscriptionsRouter = require('./routes/streamingSubscriptions');
+const usersRouter = require('./routes/users');
 
 // create express object
 const app = express();
@@ -23,8 +31,16 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // router
 app.use('/', indexRouter(db));
-app.use('/users', usersRouter(db));
-app.use('/media', mediaRouter(db));
+app.use('/api/users', usersRouter(db));
+app.use('/api/media', mediaRouter(db));
+app.use('/api/interactions', interactionsRouter(db));
+app.use('/api/conversations', conversationsRouter(db));
+app.use('/api/streamingServices', streamingServicesRouter(db));
+app.use('/api/queries', queriesRouter(db));
+app.use('/api/friends', friendsRouter(db));
+app.use('/api/streaming_subscriptions', streamingSubscriptionsRouter(db));
+app.use('/api/messages', messagesRouter(db));
+app.use('/api/sessions', sessionsRouter(db));
 
 
 // error handler
@@ -37,7 +53,6 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.json(err);
 });
-// app.get('/items', db.getItems)
 
 // catch 404 and forward to error handler
 // keep this code at bottom

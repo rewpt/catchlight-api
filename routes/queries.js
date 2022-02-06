@@ -4,7 +4,7 @@ module.exports = db => {
 
   /* GET home page. */
   router.get('/', function(req, res, next) {
-    res.send('Server started successful...')
+    
   });
   
   return router;

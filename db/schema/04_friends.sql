@@ -7,5 +7,6 @@ CREATE TABLE friends (
   friendship BOOLEAN DEFAULT FALSE,
   friendship_pending BOOLEAN DEFAULT TRUE,
   created DATE DEFAULT CURRENT_DATE,
-  modified DATE DEFAULT CURRENT_DATE
+  modified DATE DEFAULT CURRENT_DATE,
+  UNIQUE(sending_user_id, recieving_user_id)
 );

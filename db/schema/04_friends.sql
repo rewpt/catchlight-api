@@ -6,5 +6,6 @@ CREATE TABLE friends (
   recieving_user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
   friendship BOOLEAN DEFAULT FALSE,
   friendship_pending BOOLEAN DEFAULT TRUE,
-  created DATE DEFAULT CURRENT_DATE
+  created DATE DEFAULT CURRENT_DATE,
+  modified DATE DEFAULT CURRENT_DATE
 );

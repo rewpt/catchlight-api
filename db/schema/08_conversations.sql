@@ -1,0 +1,6 @@
+DROP TABLE IF EXISTS conversations CASCADE;
+
+CREATE TABLE conversations (
+  id SERIAL PRIMARY KEY,
+  media_id INTEGER REFERENCES media(id) ON DELETE CASCADE
+);

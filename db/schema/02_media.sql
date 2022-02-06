@@ -1,9 +1,9 @@
-DROP TABLE IF EXISTS media;
+DROP TABLE IF EXISTS media CASCADE;
 
 CREATE TABLE media (
   id SERIAL PRIMARY KEY,
   title VARCHAR(255) NOT NULL,
   description TEXT NOT NULL,
   image TEXT, 
-  imdb_id integer NOT NULL
+  imdb_id VARCHAR(255) NOT NULL
 );

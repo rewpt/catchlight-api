@@ -1,18 +1,16 @@
 // imports express
-const express = require('express');
-// imports express router
-const router = express.Router();
-// imports database connection
-const { pool } = require("../db");
+const router = require('express').Router();
 
-/* GET users listing. */
-router.get('/', function(req, res, next) {
-  pool.query("SELECT * FROM users;", async(error, results) => {
-    if(error) { throw error }
-    console.log(results.rows)
-    await res.status(200).json(results.rows)
-  })
-});
 
-// exports route
-module.exports = router;
+module.exports = db => {
+  
+  /* GET users listing. */
+  router.get('/', async (req, res) => {
+    const query = "SELECT * FROM users;"
+
+    const users = await db.query(query)
+
+    res.send(users)
+  });
+  return router;
+}

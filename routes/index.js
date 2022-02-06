@@ -1,9 +1,11 @@
-const express = require('express');
-const router = express.Router();
+const router = require('express').Router();
 
-/* GET home page. */
-router.get('/', function(req, res, next) {
-  res.json({"we got this":"yep"})
-});
+module.exports = db => {
 
-module.exports = router;
+  /* GET home page. */
+  router.get('/', function(req, res, next) {
+    res.json({"we got this":"yep"})
+  });
+  
+  return router;
+};

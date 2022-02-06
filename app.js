@@ -1,6 +1,6 @@
 // imports
 const createError = require('http-errors');
-const db = require("./db")
+const db = require("./db/index")
 const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
@@ -10,7 +10,6 @@ const logger = require('morgan');
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const mediaRouter = require('./routes/media');
-
 
 // create express object
 const app = express();
@@ -23,9 +22,9 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 // router
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
-app.use('/media', mediaRouter);
+app.use('/', indexRouter(db));
+app.use('/users', usersRouter(db));
+app.use('/media', mediaRouter(db));
 
 
 // error handler

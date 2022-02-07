@@ -29,7 +29,7 @@ module.exports = db => {
     };
   });
 
-  // POST /api/media/:id
+  // POST /api/media/
   // Creates a new media
   router.post('/', async (req, res) => {
     try {

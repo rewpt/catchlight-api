@@ -31,7 +31,7 @@ module.exports = db => {
 
   // POST /api/media/:id
   // Creates a new media
-  router.post('/:id', async (req, res) => {
+  router.post('/', async (req, res) => {
     try {
     const title = req.body.title;
     const description = req.body.description;

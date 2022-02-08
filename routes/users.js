@@ -59,21 +59,24 @@ module.exports = db => {
   router.put('/:id', async (req, res) => {
     const date = new Date()
     const userId = req.params.id
+
+    // two variables that create the params required for the UPDATE syntax
     const extraQueryParams = [date, userId]
+    const paramsArray = Object.values(req.body).concat(extraQueryParams)
+
 
     // takes req.body and outputs the values in an array to be used in the SET portion of the bellow query
     const setValuesWithoutExtras = createSetString(req.body)
 
     // takes the array created on line 65 and adds any additional options that need updating in the table
     const setValuesWithExtras = addAdditionalSetOptions("modified", setValuesWithoutExtras)
-    const paramsArray = Object.values(req.body).concat(addonQueryParams)
 
     const query = `
       UPDATE users
       SET ${setValuesWithExtras.toString()}
       WHERE id = $${paramsArray.length};
     `
- 
+    
     try {
       await db.query(query, paramsArray);
       res.send("success: user updated");

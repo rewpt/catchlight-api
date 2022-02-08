@@ -20,6 +20,24 @@ module.exports = db => {
     }
   });
 
+  router.get('/:id', async (req, res) => {
+    const userId = [req.params.id]
+
+    try {
+      const query = `
+      SELECT * FROM users 
+      WHERE id = $1::integer
+      `
+
+      const { rows } = await db.query(query, userId)
+      // sends only applicable data
+      res.json(rows[0])
+
+    } catch(error) {
+      res.send({"error": error.detail})
+    }
+  });
+
   
 
   return router;

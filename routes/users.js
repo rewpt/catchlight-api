@@ -1,16 +1,26 @@
 // imports express
 const router = require('express').Router();
+const { createSetString, addAdditionalSetOptions } = require('./helper/dynamicSQL')
 
 
 module.exports = db => {
   
   /* GET users listing. */
   router.get('/', async (req, res) => {
-    const query = "SELECT * FROM users;"
+    const query = `
+      SELECT * FROM users;
+      `
 
-    const users = await db.query(query)
+    try {
+      const { rows } = await db.query(query)
+      res.json(rows)
 
-    res.send(users)
+    } catch(error) {
+      res.send({"error": error.detail})
+    }
   });
+
+  
+
   return router;
 }

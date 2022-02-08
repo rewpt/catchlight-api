@@ -20,6 +20,7 @@ module.exports = db => {
     }
   });
 
+  // GET one user
   router.get('/:id', async (req, res) => {
     const userId = [req.params.id]
 
@@ -38,6 +39,7 @@ module.exports = db => {
     }
   });
 
+  // POST new user
   router.post('/', async (req, res) => {
     const userParams = [req.body.email, req.body.name, req.body.password]
 
@@ -56,6 +58,7 @@ module.exports = db => {
 
   });
 
+  // PUT existing user
   router.put('/:id', async (req, res) => {
     const date = new Date()
     const userId = req.params.id
@@ -65,10 +68,10 @@ module.exports = db => {
     const paramsArray = Object.values(req.body).concat(extraQueryParams)
 
 
-    // takes req.body and outputs the values in an array to be used in the SET portion of the bellow query
+    // takes req.body and outputs the values that need updating in an array to be used in the SET portion of the below query
     const setValuesWithoutExtras = createSetString(req.body)
 
-    // takes the array created on line 65 and adds any additional options that need updating in the table
+    // takes the array created on line 72 and adds any additional options that need updating, that were not specified in req.body
     const setValuesWithExtras = addAdditionalSetOptions("modified", setValuesWithoutExtras)
 
     const query = `
@@ -76,7 +79,7 @@ module.exports = db => {
       SET ${setValuesWithExtras.toString()}
       WHERE id = $${paramsArray.length};
     `
-    
+
     try {
       await db.query(query, paramsArray);
       res.send("success: user updated");

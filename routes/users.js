@@ -38,6 +38,24 @@ module.exports = db => {
     }
   });
 
+  router.post('/', async (req, res) => {
+    const userParams = [req.body.email, req.body.name, req.body.password]
+
+    const query = `
+      INSERT INTO users (email, name, password) 
+      VALUES ($1::VARCHAR(255), $2::VARCHAR(255), $3::VARCHAR(255));
+    `
+
+    try {
+      await db.query(query, userParams)
+      res.send("success: user created in database")
+
+    } catch(error) {
+      res.send({"error": error.detail})
+    }
+
+  });
+
   
 
   return router;

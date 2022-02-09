@@ -2,19 +2,20 @@
 const router = require('express').Router();
 const { createSetString, addAdditionalSetOptions } = require('./helper/dynamicSQL');
 const bcrypt = require('bcrypt');
+const { authenticateToken } = require('../middleware/authorization');
 
 
 module.exports = db => {
   
   /* GET users listing. */
-  router.get('/', async (req, res) => {
+  router.get('/', authenticateToken, async (req, res) => {
     const query = `
       SELECT * FROM users;
       `
 
     try {
       const { rows } = await db.query(query)
-      res.json(rows)
+      res.json({users:rows})
 
     } catch(error) {
       res.send({"error": error.detail})
@@ -54,7 +55,7 @@ module.exports = db => {
     try {
       const newUser = await db.query(query, userParams);
       console.log(newUser);
-      res.json({users:newUser.rows[0]});
+      res.json({Users:newUser.rows[0]});
 
     } catch(error) {
       res.send({"error": error.detail})

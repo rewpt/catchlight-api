@@ -1,6 +1,7 @@
 // imports express
 const router = require('express').Router();
-const { createSetString, addAdditionalSetOptions } = require('./helper/dynamicSQL')
+const { createSetString, addAdditionalSetOptions } = require('./helper/dynamicSQL');
+const bcrypt = require('bcrypt');
 
 
 module.exports = db => {
@@ -40,17 +41,20 @@ module.exports = db => {
   });
 
   // POST new user
-  router.post('/', async (req, res) => {
-    const userParams = [req.body.email, req.body.name, req.body.password]
+  router.post('/register', async (req, res) => {
+    const hashedPassword = await bcrypt.hash(req.body.password, 10);
+    const userParams = [req.body.email, req.body.name, hashedPassword]
 
     const query = `
       INSERT INTO users (email, name, password) 
-      VALUES ($1::VARCHAR(255), $2::VARCHAR(255), $3::VARCHAR(255));
+      VALUES ($1::VARCHAR(255), $2::VARCHAR(255), $3::VARCHAR(255))
+      RETURNING *;
     `
 
     try {
-      await db.query(query, userParams)
-      res.send("success: user created in database")
+      const newUser = await db.query(query, userParams);
+      console.log(newUser);
+      res.json({users:newUser.rows[0]});
 
     } catch(error) {
       res.send({"error": error.detail})

@@ -50,7 +50,7 @@ module.exports = db => {
 
         // cookie setting may need modifications for front end server
         // { httpOnly: true, sameSite: 'none', secure: true }
-        res.cookie('refresh_token', tokens.refreshToken, { httpOnly: true });
+        res.cookie('refresh_token', tokens.refreshToken, {httpOnly: true});
         res.json(tokens);
       });
     } catch (e) {

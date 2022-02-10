@@ -7,8 +7,9 @@ const { authenticateToken } = require('../middleware/authorization');
 
 module.exports = db => {
   
+  // router.get('/', authenticateToken, async (req, res) => {
   /* GET users listing. */
-  router.get('/', authenticateToken, async (req, res) => {
+  router.get('/', async (req, res) => {
     const query = `
       SELECT * FROM users;
       `
@@ -54,7 +55,6 @@ module.exports = db => {
 
     try {
       const newUser = await db.query(query, userParams);
-      console.log(newUser);
       res.json({Users:newUser.rows[0]});
 
     } catch(error) {

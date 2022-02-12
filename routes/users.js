@@ -3,6 +3,7 @@ const router = require('express').Router();
 const { createSetString, addAdditionalSetOptions } = require('./helper/dynamicSQL');
 const bcrypt = require('bcrypt');
 const { authenticateToken } = require('../middleware/authorization');
+const jwt = require('jsonwebtoken')
 
 
 module.exports = db => {
@@ -24,8 +25,18 @@ module.exports = db => {
   });
 
   // GET one user
-  router.get('/:id', async (req, res) => {
-    const userId = [req.params.id]
+  router.get('/user', async (req, res) => {
+    
+    if(req.headers.authorization.split(" ")[0] === "Bearer") {
+      const token = req.headers.authorization.split(" ")[1];
+    try {
+      const decoded = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET)
+      console.log(decoded)
+
+    } catch(e) {
+      console.log("erroring at", e)
+    }
+    }
 
     try {
       const query = `

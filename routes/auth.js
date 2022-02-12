@@ -21,7 +21,7 @@ module.exports = db => {
       if(!validPassword) return res.status(401).json({error: "Incorrect password"});
       // JWT
       let tokens = jwtTokens(users.rows[0]);
-      res.cookie('refresh_token', tokens.refreshToken, {httpOnly:true});
+
       res.json(tokens);
     } catch (e) {
       res.send(e);
@@ -31,7 +31,6 @@ module.exports = db => {
   //logout
   router.delete('/refresh_token', (req, res) => {
     try {
-      res.clearCookie('refresh_token');
       return res.status(200).json({message: 'refresh token deleted'})
     } catch (error) {
       res.status(401).json({error: error.message});

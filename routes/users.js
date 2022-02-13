@@ -9,7 +9,8 @@ module.exports = db => {
   
   // router.get('/', authenticateToken, async (req, res) => {
   /* GET users listing. */
-  router.get('/', async (req, res) => {
+  router.get('/', authenticateToken, async (req, res) => {
+    
     const query = `
       SELECT * FROM users;
       `
@@ -24,9 +25,9 @@ module.exports = db => {
   });
 
   // GET one user
-  router.get('/:id', async (req, res) => {
-    const userId = [req.params.id]
-
+  router.get('/user', authenticateToken, async (req, res) => {
+    // const userId = [req.params.id]
+    console.log(res)
     try {
       const query = `
       SELECT * FROM users 

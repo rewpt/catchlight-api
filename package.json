@@ -2,6 +2,7 @@
   "name": "catchlight-api",
   "version": "0.0.0",
   "private": true,
+  "proxy": "http://localhost:3001",
   "scripts": {
     "start": "nodemon ./bin/www",
     "db:reset": "node db/resetdb.js"

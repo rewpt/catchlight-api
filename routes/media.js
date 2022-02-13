@@ -31,6 +31,19 @@ module.exports = db => {
     };
   });
 
+  router.get('/search/:searchQuery', async (req, res) => {
+    const { searchQuery } = req.params;
+    const queryParams = [`%${searchQuery}%`];
+    const query = 'SELECT * FROM media WHERE LOWER(media.title) LIKE $1';
+
+    try {
+    const { rows } = await db.query(query, queryParams);
+    res.json(rows);
+    } catch (e) {
+      res.send(e)
+    };
+  });
+
   // POST /api/media
   // Creates a new media
   router.post('/', async (req, res) => {

@@ -33,7 +33,7 @@ module.exports = db => {
     try {
       res.clearCookie('refresh_token');
       return res.status(200).json({message: 'refresh token deleted'})
-    } catch (e) {
+    } catch (error) {
       res.status(401).json({error: error.message});
     }
   });

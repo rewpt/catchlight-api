@@ -31,7 +31,7 @@ module.exports = db => {
   router.get('/requests', authenticateToken, async function(req, res, next) {
 
     try {
-      const query = `SELECT friends.id, sending_user_id, users.name, users.email FROM friends JOIN users ON users.id = friends.sending_user_id WHERE friends.recieving_user_id = $1`
+      const query = `SELECT friends.id, sending_user_id, users.name, users.email FROM friends JOIN users ON users.id = friends.sending_user_id WHERE friends.friendship_pending = true AND friends.recieving_user_id = $1`
       queryParams = [req.user.id];
       const friendRequests = await db.query(query, queryParams)
       res.send(friendRequests.rows)
@@ -46,9 +46,15 @@ module.exports = db => {
 
     try {
       //Get user2 id from email and user 1 from body
-      const query = `SELECT * FROM friends WHERE id = $1`
-      console.log('friendResponse', req.body.friendResponse)
-      console.log('id', req.body.id)
+      // const query = `UPDATE friends SET friendship $1 WHERE id = $2`
+      // console.log('friendResponse', req.body.friendResponse)
+      // console.log('id', req.body.id)
+      // queryParams = [req.body.friendResponse, req.body.id]
+      // const friendRow = await db.query(query, queryParams)
+      // console.log(friendRow.rows);
+      // res.send(friendRow);
+
+      const query = `SELECT * from FRIENDS where id = $1`
       queryParams = [req.body.id]
       const friendRow = await db.query(query, queryParams)
       console.log(friendRow.rows);

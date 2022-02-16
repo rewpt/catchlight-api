@@ -1,11 +1,11 @@
-INSERT INTO interactions (user_id, media_id, watched, rating) 
+INSERT INTO interactions (user_id, media_id, watch_list, rating) 
 VALUES 
 (1, 1, true, 'like'),
 (1, 9, true, 'dislike'),
-(3, 1, true, 'meh'),
-(2, 2, true, 'like'),
-(3, 1, true, 'dislike'),
 (1, 3, true, 'like'),
+(2, 2, true, 'like'),
+(3, 1, true, 'meh'),
+(3, 1, true, 'dislike'),
 (4, 5, true, 'meh'),
 (4, 7, true, 'like'),
 (4, 9, true, 'dislike'),

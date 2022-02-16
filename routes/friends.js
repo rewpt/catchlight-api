@@ -45,20 +45,20 @@ module.exports = db => {
   router.put('/requests', authenticateToken, async function(req, res, next) {
 
     try {
-      //Get user2 id from email and user 1 from body
-      // const query = `UPDATE friends SET friendship $1 WHERE id = $2`
-      // console.log('friendResponse', req.body.friendResponse)
-      // console.log('id', req.body.id)
-      // queryParams = [req.body.friendResponse, req.body.id]
-      // const friendRow = await db.query(query, queryParams)
-      // console.log(friendRow.rows);
-      // res.send(friendRow);
-
-      const query = `SELECT * from FRIENDS where id = $1`
-      queryParams = [req.body.id]
+      //query to change friendship status to true or false
+      const query = `UPDATE friends SET friendship = $1, friendship_pending = false WHERE id = $2`
+      console.log('friendResponse', req.body.friendResponse)
+      console.log('id', req.body.id)
+      queryParams = [req.body.friendResponse, req.body.id]
       const friendRow = await db.query(query, queryParams)
       console.log(friendRow.rows);
-      res.send(friendRow);
+      res.send("friend action complete");
+
+      // const query = `SELECT * from FRIENDS where id = $1`
+      // queryParams = [req.body.id]
+      // const friendRow = await db.query(query, queryParams)
+      // console.log(friendRow.rows);
+      // res.json(friendRow.rows);
 
     } catch(error) {
       res.send({"error": error.detail})

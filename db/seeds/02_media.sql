@@ -6,7 +6,7 @@ INSERT INTO media (title, description, image, imdb_id) VALUES (
 INSERT INTO media (title, description, image, imdb_id) VALUES (
   'Inception', 
   'A thief who steals corporate secrets through the use of dream-sharing technology is given the inverse task of planting an idea into the mind of a C.E.O.', 
-  'https://m.media-amazon.com/images/M/MV5BNzQzOTk3OTAtNDQ0Zi00ZTVkLWI0MTEtMDllZjNkYzNjNTc4L2ltYWdlXkEyXkFqcGdeQXVyNjU0OTQ0OTY@.jpg', 
+  'https://m.media-amazon.com/images/M/MV5BMjAxMzY3NjcxNF5BMl5BanBnXkFtZTcwNTI5OTM0Mw@@.jpg', 
   'tt1375666');
 INSERT INTO media (title, description, image, imdb_id) VALUES (
   'Lost in Translation', 

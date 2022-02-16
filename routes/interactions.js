@@ -22,11 +22,13 @@ module.exports = db => {
   router.post('/', async (req, res) => {
     const user_id = req.body.user_id;
     const media_id = req.body.media_id;
-    const watched = req.body.watched;
+    const watchList = req.body.watch_list;
     const rating = req.body.rating;
-    queryParams = [user_id, media_id, watched, rating];
-    const query = 'INSERT INTO interactions (user_id, media_id, watched, rating) VALUES ($1, $2, $3, $4)';
+    const queryParams = watchList ? [user_id, media_id, watchList] : [user_id, media_id, rating]
+    const watchListOrRating = watchList ? 'watch_list' : 'rating'
 
+    const query = `INSERT INTO interactions (user_id, media_id, ${watchListOrRating}) VALUES ($1, $2, $3)`;
+    
     try {
       await db.query(query, queryParams);
       res.json('created new interaction');

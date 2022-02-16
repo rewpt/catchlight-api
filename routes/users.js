@@ -30,7 +30,7 @@ module.exports = db => {
     
     try {
       const query = `
-      SELECT * FROM users 
+      SELECT name, email, profile_picture FROM users 
       WHERE id = $1::integer
       `
       

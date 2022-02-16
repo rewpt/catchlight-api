@@ -20,6 +20,10 @@ const streamingServicesRouter = require('./routes/streamingServices');
 const streamingSubscriptionsRouter = require('./routes/streamingSubscriptions');
 const usersRouter = require('./routes/users');
 const authRouter = require('./routes/auth');
+const mediaFriendsRecommendationsRouter = require('./routes/mediaFriendsRecommendations');
+const watched = require('./routes/watched');
+const towatch = require('./routes/towatch');
+
 
 // create express object
 const app = express();
@@ -48,6 +52,10 @@ app.use('/api/streaming_subscriptions', streamingSubscriptionsRouter(db));
 app.use('/api/messages', messagesRouter(db));
 app.use('/api/sessions', sessionsRouter(db));
 app.use('/api/auth', authRouter(db));
+app.use('/api/mediaFriendsRecommendations', mediaFriendsRecommendationsRouter(db));
+app.use('/api/watched', watched(db));
+app.use('/api/towatch', towatch(db));
+
 
 
 // error handler

@@ -29,9 +29,11 @@ module.exports = db => {
 
   //Get friend reqs for a specific user
   router.get('/requests', authenticateToken, async function(req, res, next) {
-
+    console.log('this is req.user.id', req.user.id)
     try {
-      const query = `SELECT friends.id, sending_user_id, users.name, users.email FROM friends JOIN users ON users.id = friends.sending_user_id WHERE friends.friendship_pending = true AND friends.recieving_user_id = $1`
+      const query = `SELECT friends.id, sending_user_id, users.name, users.email 
+      FROM friends JOIN users ON users.id = friends.sending_user_id 
+      WHERE friends.friendship_pending = true AND friends.recieving_user_id = $1`
       queryParams = [req.user.id];
       const friendRequests = await db.query(query, queryParams)
       res.send(friendRequests.rows)
@@ -46,7 +48,7 @@ module.exports = db => {
 
     try {
       //query to change friendship status to true or false
-      const query = `UPDATE friends SET friendship = $1, friendship_pending = false WHERE id = $2`
+      const query = `UPDATE friends SET friendship = $1, friendship_pending = false WHERE id = $2 returning *`
       console.log('friendResponse', req.body.friendResponse)
       console.log('id', req.body.id)
       queryParams = [req.body.friendResponse, req.body.id]

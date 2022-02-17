@@ -26,13 +26,36 @@ module.exports = db => {
     const query = 'SELECT * FROM media WHERE id = $1';
 
     try {
-    const { rows } = await db.query(query, queryParams);
-    
-    res.json(rows[0]);
+      const { rows } = await db.query(query, queryParams);
+      res.json(rows[0]);
+
     } catch (e) {
       res.send(e)
     };
   });
+
+  //GET /api/media/:id/interactions
+  // returns a user's interactions with one media
+  router.get('/:id/interactions', authenticateToken, async (req, res) => {
+    const userId = req.user.id;
+    const mediaId = req.params.id;
+
+    const queryParams = [userId, mediaId]
+    const query = `
+      SELECT * FROM interactions
+      WHERE user_id = $1
+      AND media_id = $2;
+    `
+
+    try{
+      const { rows } = await db.query(query, queryParams)
+      console.log(res.rows)
+      res.json(rows[0]);
+
+    } catch(e) {
+      res.send(e)
+    }
+  })
 
   router.get('/search/:searchQuery', async (req, res) => {
     const { searchQuery } = req.params;

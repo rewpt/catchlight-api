@@ -18,7 +18,7 @@ module.exports = db => {
     recieving_user_id AS id,
     (SELECT json_agg(interactions)::jsonb
       FROM (
-        SELECT id, media_id, rating, watched FROM interactions WHERE user_id = friends.recieving_user_id
+        SELECT id, media_id, rating FROM interactions WHERE user_id = friends.recieving_user_id
       ) AS interactions
     ) AS interactions
   FROM 
@@ -34,7 +34,7 @@ module.exports = db => {
     sending_user_id AS id,
       (SELECT json_agg(interactions)::jsonb
       FROM (
-        SELECT id, media_id, rating, watched FROM interactions WHERE user_id = friends.sending_user_id
+        SELECT id, media_id, rating FROM interactions WHERE user_id = friends.sending_user_id
       ) AS interactions
     ) AS interactions
   FROM 

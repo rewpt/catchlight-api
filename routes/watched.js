@@ -14,9 +14,10 @@ module.exports = db => {
     const queryParams = [userID];
 
     const query = `
-    SELECT media_id
+    SELECT media_id, rating
     FROM interactions
-    WHERE user_id = $1;
+    WHERE user_id = $1
+    AND rating != 'interest';
     `;
 
     try {

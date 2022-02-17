@@ -17,7 +17,7 @@ module.exports = db => {
     SELECT media_id
     FROM interactions
     WHERE user_id = $1
-    AND watched = false;
+    AND rating = 'interest';
     `;
 
     try {

@@ -1,5 +1,6 @@
 // imports express and router
 const router = require('express').Router();
+const { authenticateToken } = require('../middleware/authorization');
 
 module.exports = db => {
 
@@ -11,21 +12,23 @@ module.exports = db => {
     try {
     const { rows } = await db.query(query);
     res.json(rows);
+
     } catch (e) {
-      res.send(e)
+      res.send({"error": error.detail})
     };
   })
 
   // GET /api/media/:id
   // returns a media
-  router.get('/:id', async (req, res) => {
+  router.get('/:id', authenticateToken, async (req, res) => {
     const { id } = req.params;
     const queryParams = [id];
     const query = 'SELECT * FROM media WHERE id = $1';
 
     try {
     const { rows } = await db.query(query, queryParams);
-    res.json(rows);
+    
+    res.json(rows[0]);
     } catch (e) {
       res.send(e)
     };

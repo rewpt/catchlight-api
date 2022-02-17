@@ -23,6 +23,8 @@ const authRouter = require('./routes/auth');
 const mediaFriendsRecommendationsRouter = require('./routes/mediaFriendsRecommendations');
 const watched = require('./routes/watched');
 const towatch = require('./routes/towatch');
+const friendsPictures = require('./routes/friendsPictures');
+
 
 
 // create express object
@@ -55,6 +57,7 @@ app.use('/api/auth', authRouter(db));
 app.use('/api/mediaFriendsRecommendations', mediaFriendsRecommendationsRouter(db));
 app.use('/api/watched', watched(db));
 app.use('/api/towatch', towatch(db));
+app.use('/api/friendsPictures', friendsPictures(db));
 
 
 

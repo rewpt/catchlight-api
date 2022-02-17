@@ -35,7 +35,7 @@ module.exports = db => {
     } catch (e) {
       res.send(e);
     };
-  })
+  });
 
   // PUT api/interactions/:id
   // Modifies a interaction

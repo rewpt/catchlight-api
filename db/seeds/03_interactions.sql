@@ -3,7 +3,7 @@ VALUES
 (1, 1, 'like'),
 (1, 2, 'interest'),
 (1, 3, 'dislike'),
-(1, 4, 'like'),
+(1, 4, 'meh'),
 (2, 2, 'interest'),
 (3, 1, 'meh'),
 (3, 1, 'dislike'),

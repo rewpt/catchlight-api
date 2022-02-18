@@ -14,6 +14,5 @@ VALUES
 (4, 10, false, false),
 (10, 4, false, true),
 (10, 1, false, false),
-(1, 7, true, false),
 (4, 1, false, true),
 (1, 8, true, false);

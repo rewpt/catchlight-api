@@ -1,19 +1,44 @@
+const { json } = require('express/lib/response');
+const { authenticateToken } = require('../middleware/authorization');
+
 const router = require('express').Router();
 
 module.exports = db => {
 
+  
   // GET api/interactions/:id
   // returns a interaction
   router.get('/:id', async (req, res) => {
     const { id } = req.params;
     const queryParams = [id];
     const query = 'SELECT * FROM interactions WHERE id = $1';
+    
+    try {
+      const { rows } = await db.query(query, queryParams);
+      res.json(rows);
+    } catch (e) {
+      res.send(e);
+    }
+  });
+  
+  router.get('/count/:id', authenticateToken, async (req, res) => {
+    const query = `
+    SELECT COUNT(*) as total_count,
+    COUNT(*) FILTER (WHERE rating = 'like') AS like_count,
+    COUNT(*) FILTER (WHERE rating = 'dislike') AS dislike_count,
+    COUNT(*) FILTER (WHERE rating = 'meh') AS meh_count
+    FROM interactions
+    WHERE media_id = $1
+    AND rating != 'interest';
+    `
+    const params = [req.params.id]
 
     try {
-    const { rows } = await db.query(query, queryParams);
-    res.json(rows);
-    } catch (e) {
-    res.send(e);
+      const { rows } = await db.query(query, params);
+
+      res.json(rows)
+    } catch(e) {
+      res.send({"error": e.detail})
     }
   });
 

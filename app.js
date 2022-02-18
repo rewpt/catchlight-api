@@ -24,6 +24,7 @@ const mediaFriendsRecommendationsRouter = require('./routes/mediaFriendsRecommen
 const watched = require('./routes/watched');
 const towatch = require('./routes/towatch');
 const friendsPictures = require('./routes/friendsPictures');
+const addToWatchList = require('./routes/addToWatchList');
 
 
 
@@ -58,6 +59,7 @@ app.use('/api/mediaFriendsRecommendations', mediaFriendsRecommendationsRouter(db
 app.use('/api/watched', watched(db));
 app.use('/api/towatch', towatch(db));
 app.use('/api/friendsPictures', friendsPictures(db));
+app.use('/api/addToWatchList', addToWatchList(db));
 
 
 

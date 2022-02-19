@@ -29,7 +29,6 @@ module.exports = db => {
 
   //Get friend reqs for a specific user
   router.get('/requests', authenticateToken, async function(req, res, next) {
-    console.log('this is req.user.id', req.user.id)
     try {
       const query = `SELECT friends.id, sending_user_id, users.name, users.email 
       FROM friends JOIN users ON users.id = friends.sending_user_id 
@@ -37,7 +36,6 @@ module.exports = db => {
       queryParams = [req.user.id];
       const friendRequests = await db.query(query, queryParams)
       res.send(friendRequests.rows)
-      console.log(friendRequests.rows)
     } catch(error) {
       res.send({"error": error.detail})
     }

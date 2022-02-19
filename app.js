@@ -25,6 +25,7 @@ const watched = require('./routes/watched');
 const towatch = require('./routes/towatch');
 const friendsPictures = require('./routes/friendsPictures');
 const addToWatchList = require('./routes/addToWatchList');
+const removeFromWatchList = require('./routes/removeFromWatchList');
 
 
 
@@ -60,7 +61,7 @@ app.use('/api/watched', watched(db));
 app.use('/api/towatch', towatch(db));
 app.use('/api/friendsPictures', friendsPictures(db));
 app.use('/api/addToWatchList', addToWatchList(db));
-
+app.use('/api/removeFromWatchList', removeFromWatchList(db));
 
 
 // error handler

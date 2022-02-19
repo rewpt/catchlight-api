@@ -6,7 +6,6 @@ VALUES
 (1, 4, 'meh'),
 (2, 2, 'interest'),
 (3, 1, 'meh'),
-(3, 1, 'dislike'),
 (4, 5, 'interest'),
 (4, 7, 'like'),
 (4, 9, 'dislike'),

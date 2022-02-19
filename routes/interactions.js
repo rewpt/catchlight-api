@@ -44,19 +44,29 @@ module.exports = db => {
 
   // POST api/interactions
   // Creates a interaction
-  router.post('/', async (req, res) => {
-    const user_id = req.body.user_id;
-    const media_id = req.body.media_id;
-    const rating = req.body.rating;
-    const queryParams = [user_id, media_id, rating]
 
-    const query = `INSERT INTO interactions (user_id, media_id, rating) VALUES ($1, $2, $3)`;
-    
+
+  router.post('/', authenticateToken, async (req, res) => {
+    const user_id = req.user.id;
+    const media_id = ~~req.body.mediaId;
+    const rating = req.body.rating;
+    const queryParams = [rating, user_id, media_id]
+
+    //Find if there are any instances of a user 
+    const query1 = `UPDATE interactions SET rating=$1 WHERE user_id=$2 AND media_id=$3;`
+    const query2 = `INSERT INTO interactions (rating, user_id, media_id)
+           SELECT $1, $2, $3
+           WHERE NOT EXISTS (SELECT 1 FROM interactions WHERE user_id=$2 AND media_id=$3);`
     try {
-      await db.query(query, queryParams);
-      res.json('created new interaction');
+      await db.query(query1, queryParams);
     } catch (e) {
-      res.send(e);
+        
+    }; 
+    try {
+      await db.query(query2, queryParams);
+      res.json('Interaction Updated');
+    } catch (e2) {
+      res.send(e2); 
     };
   });
 

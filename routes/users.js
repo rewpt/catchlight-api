@@ -42,6 +42,17 @@ module.exports = db => {
     }
   });
 
+  // Get a user's ID
+  router.get('/user/id', authenticateToken, async (req, res) => {
+    try {
+    const userId = [req.user.id]
+    res.json(userId)
+    }
+    catch(error) {
+      res.send({"error": error.detail})
+    }
+  });
+
   // POST new user
   router.post('/register', async (req, res) => {
     const hashedPassword = await bcrypt.hash(req.body.password, 10);

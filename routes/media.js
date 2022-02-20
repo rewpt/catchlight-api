@@ -49,7 +49,6 @@ module.exports = db => {
 
     try{
       const { rows } = await db.query(query, queryParams)
-      console.log(res.rows)
       res.json(rows[0]);
 
     } catch(e) {

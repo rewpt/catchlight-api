@@ -3,7 +3,7 @@ VALUES
 ('Netflix'),
 ('Disney+'),
 ('Hulu'),
-('Prim Video'),
+('Prime Video'),
 ('HBO Max'),
 ('Stars'),
 ('Peakcock'),

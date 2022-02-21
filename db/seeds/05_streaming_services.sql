@@ -6,7 +6,7 @@ VALUES
 ('Prime Video'),
 ('HBO Max'),
 ('Stars'),
-('Peakcock'),
+('Peacock'),
 ('Paramount Plus'),
 ('Apple Tv+'),
 ('ESPN Plus');

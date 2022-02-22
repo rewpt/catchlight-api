@@ -11,6 +11,7 @@ VALUES
 ('Jane Jones', 'jane@gmail.com', '$2b$10$y3SJQS5SvhohnkeZ593eT.VjObqT.ZbfXBu/es4JA35CETZIQBpV6', 'https://images.unsplash.com/photo-1550525811-e5869dd03032?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80'),
 ('Miles Walters', 'miles22@gmail.com', '$2b$10$y3SJQS5SvhohnkeZ593eT.VjObqT.ZbfXBu/es4JA35CETZIQBpV6', 'https://images.unsplash.com/photo-1615813967515-e1838c1c5116?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2574&q=80'),
 ('Danny Devito', 'dannyd@gmail.com', '$2b$10$y3SJQS5SvhohnkeZ593eT.VjObqT.ZbfXBu/es4JA35CETZIQBpV6', 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/88/Danny_DeVito_cropped_and_edited_for_brightness.jpg/1024px-Danny_DeVito_cropped_and_edited_for_brightness.jpg'),
-('Ben Apples', 'ben@gmail.com', '$2b$10$y3SJQS5SvhohnkeZ593eT.VjObqT.ZbfXBu/es4JA35CETZIQBpV6', 'https://cdn.discordapp.com/attachments/867480158658756629/942842921932165150/apple_158989157.jpg');
-
-
+('Ben Apples', 'ben@gmail.com', '$2b$10$y3SJQS5SvhohnkeZ593eT.VjObqT.ZbfXBu/es4JA35CETZIQBpV6', 'https://cdn.discordapp.com/attachments/867480158658756629/942842921932165150/apple_158989157.jpg'),
+('Keanu Reeves', 'keanu@reeves.com', '$2b$10$y3SJQS5SvhohnkeZ593eT.VjObqT.ZbfXBu/es4JA35CETZIQBpV6', 'https://upload.wikimedia.org/wikipedia/commons/3/33/Reuni%C3%A3o_com_o_ator_norte-americano_Keanu_Reeves_%2846806576944%29_%28cropped%29.jpg'), 
+('Robin Williams', 'robin@williams.com', '$2b$10$y3SJQS5SvhohnkeZ593eT.VjObqT.ZbfXBu/es4JA35CETZIQBpV6', 'https://upload.wikimedia.org/wikipedia/commons/5/59/Robin_Williams_Happy_Feet_premiere.jpg'), 
+('Albert Einstein', 'albert@einstein.com', '$2b$10$y3SJQS5SvhohnkeZ593eT.VjObqT.ZbfXBu/es4JA35CETZIQBpV6', 'https://upload.wikimedia.org/wikipedia/commons/3/3e/Einstein_1921_by_F_Schmutzer_-_restoration.jpg');

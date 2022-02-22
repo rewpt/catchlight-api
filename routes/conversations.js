@@ -1,4 +1,5 @@
 const router = require('express').Router();
+const { authenticateToken } = require('../middleware/authorization');
 
 module.exports = db => {
 
@@ -87,6 +88,21 @@ module.exports = db => {
     res.send(err);
    }
   });
+
+// Gets friends of logged in user who they have conversations with
+
+  router.get('/participants/friends', authenticateToken, async function(req, res, next) {
+    try {
+      const query = "SELECT users.id, users.name, users.profile_picture FROM conversation_participants JOIN users on users.id = conversation_participants.user_id WHERE conversation_id IN (select conversation_id from conversation_participants WHERE user_id = $1) AND users.id !=$1";
+      queryParams = [req.user.id];
+      const friendsWithConversations = await db.query(query, queryParams)
+      res.send(friendsWithConversations.rows)
+    } catch(error) {
+      res.send({"error": error.detail})
+    }
+    
+  });
+
 
   //Modifies a conversation's participant, sets message waiting to false
   router.put('/:conversation_id/participants/:id', async function(req, res) {

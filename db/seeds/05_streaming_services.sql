@@ -9,4 +9,5 @@ VALUES
 ('Peakcock'),
 ('Paramount Plus'),
 ('Apple Tv+'),
-('ESPN Plus');
+('ESPN Plus'),
+('Cinemax');

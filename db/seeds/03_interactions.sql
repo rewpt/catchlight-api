@@ -1,4 +1,4 @@
-INSERT INTO interactions (user_id, media_id, watched, rating) 
+INSERT INTO interactions (user_id, media_id, rating) 
 VALUES 
 (1, 1, 'like'),
 (1, 2, 'interest'),

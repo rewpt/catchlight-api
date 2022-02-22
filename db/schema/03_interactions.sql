@@ -4,8 +4,8 @@ CREATE TABLE interactions (
   id SERIAL PRIMARY KEY,
   user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
   media_id INTEGER REFERENCES media(id) ON DELETE CASCADE,
-  watched BOOLEAN NOT NULL DEFAULT FALSE,
-  rating VARCHAR(255) CHECK (rating IN ('like','dislike','meh')) DEFAULT NULL,
+  rating VARCHAR(255) CHECK (rating IN ('like','dislike','meh', 'interest')) DEFAULT NULL,
   created DATE DEFAULT CURRENT_DATE NOT NULL,
-  modified DATE DEFAULT CURRENT_DATE NOT NULL 
+  modified DATE DEFAULT CURRENT_DATE NOT NULL,
+  UNIQUE(user_id, media_id)
 );

@@ -23,13 +23,11 @@ VALUES
 (5, 9, true, false),
 (5, 10, true, false),
 (5, 11, true, false),
--- (5, 12, true, false),
 (6, 2, true, false),
 (6, 7, true, false),
 (6, 8, true, false),
 (6, 9, true, false),
 (6, 10, true, false),
 (6, 11, true, false),
--- (6, 12, true, false),
 (6, 3, true, false),
 (5, 2, true, false);

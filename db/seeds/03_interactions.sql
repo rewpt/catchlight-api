@@ -11,7 +11,7 @@ VALUES
 (4, 5, 'interest'),
 (4, 7, 'like'),
 (4, 9, 'dislike'),
-(5, 1, 'dislike'),
+(5, 1, 'interest'),
 (5, 2, 'meh'),
 (6, 7, 'interest'),
 (7, 7, 'meh'),
@@ -61,8 +61,7 @@ VALUES
 (6, 46, 'interest'),
 (5, 55, 'interest'),
 (5, 56, 'interest'),
-(5, 57, 'interest'),
-(5, 58, 'interest'),
+(5, 37, 'interest'),
 (8, 14, 'meh'),
 (8, 30, 'meh'),
 (8, 32, 'dislike'),
@@ -83,4 +82,5 @@ VALUES
 (7, 10, 'like'),
 (11, 10, 'meh'),
 (3, 10, 'interest'),
-(8, 83, 'like');
+(8, 83, 'like'),
+(5, 27, 'interest');

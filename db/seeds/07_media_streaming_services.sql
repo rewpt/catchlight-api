@@ -1,9 +1,9 @@
 INSERT INTO media_streaming_services (media_id, streaming_service_id) 
 VALUES 
-(5, 3),
+(5, 1),
 (1, 7),
 (9, 1),
-(8, 3),
+(8, 1),
 (2, 7),
 (6, 1),
 (2, 3),

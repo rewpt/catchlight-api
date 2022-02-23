@@ -24,6 +24,7 @@ module.exports = db => {
       res.cookie('refresh_token', tokens.refreshToken, {httpOnly:true});
       res.json(tokens);
     } catch (e) {
+      console.log(e)
       res.send(e);
     }
   })

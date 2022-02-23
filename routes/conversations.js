@@ -136,11 +136,16 @@ module.exports = db => {
   router.post('/messagesend', authenticateToken, async function(req, res, next) {
     try {
       // const query = "SELECT users.id, users.name, users.profile_picture FROM conversation_participants JOIN users on users.id = conversation_participants.user_id WHERE conversation_id IN (select conversation_id from conversation_participants WHERE user_id = $1) AND users.id !=$1";
-      const query = `INSERT INTO messages (user_id, conversation_id, content, deleted) VALUES  (2, 3, 'Hello Zev!!!', false)` 
-      queryParams = [req.body.topicSelected, req.user.id, req.body.activeFriend, ];
-      const conversationMessages = await db.query(query, queryParams)
-      console.log(conversationMessages)
-      res.send(conversationMessages.rows)
+      const userID = req.user.id;
+      const conversationID = req.body.conversationID;
+      const content = req.body.content; 
+
+      queryParams = [userID, conversationID, content];
+      const query = `INSERT INTO messages (user_id, conversation_id, content, deleted) VALUES  ($1, $2, $3, false)`;
+
+      const messageSent = await db.query(query, queryParams)
+      console.log(messageSent)
+      res.send(messageSent)
     } catch(error) {
       res.send({"error": error.detail})
     }

@@ -93,10 +93,40 @@ module.exports = db => {
 
   router.get('/participants/friends', authenticateToken, async function(req, res, next) {
     try {
-      const query = "SELECT users.id, users.name, users.profile_picture FROM conversation_participants JOIN users on users.id = conversation_participants.user_id WHERE conversation_id IN (select conversation_id from conversation_participants WHERE user_id = $1) AND users.id !=$1";
+      const query = "SELECT DISTINCT users.id, users.name, users.profile_picture FROM conversation_participants JOIN users on users.id = conversation_participants.user_id WHERE conversation_id IN (select conversation_id from conversation_participants WHERE user_id = $1) AND users.id !=$1";
       queryParams = [req.user.id];
       const friendsWithConversations = await db.query(query, queryParams)
       res.send(friendsWithConversations.rows)
+    } catch(error) {
+      res.send({"error": error.detail})
+    }
+    
+  });
+
+  // Gets Topics For a particular friend of a user
+
+  router.post('/topics', authenticateToken, async function(req, res, next) {
+    try {
+      // const query = "SELECT users.id, users.name, users.profile_picture FROM conversation_participants JOIN users on users.id = conversation_participants.user_id WHERE conversation_id IN (select conversation_id from conversation_participants WHERE user_id = $1) AND users.id !=$1";
+      const query = "SELECT media.title, media.id FROM media WHERE media.id IN (Select media_id FROM conversations WHERE conversations.id IN (Select conversation_id FROM conversation_participants where user_id = $2 AND conversation_id IN (SELECT conversation_id from conversation_participants WHERE user_id = $1))) "
+      queryParams = [req.user.id, req.body.activeFriend];
+      const friendsWithConversations = await db.query(query, queryParams)
+      console.log(friendsWithConversations)
+      res.send(friendsWithConversations.rows)
+    } catch(error) {
+      res.send({"error": error.detail})
+    }
+    
+  });
+
+  router.post('/messages', authenticateToken, async function(req, res, next) {
+    try {
+      // const query = "SELECT users.id, users.name, users.profile_picture FROM conversation_participants JOIN users on users.id = conversation_participants.user_id WHERE conversation_id IN (select conversation_id from conversation_participants WHERE user_id = $1) AND users.id !=$1";
+      const query = "SELECT * from messages WHERE messages.conversation_id = (SELECT id FROM conversations WHERE media_id = $1 AND conversations.id IN (Select conversation_id FROM conversation_participants where user_id = $2 AND conversation_id IN (SELECT conversation_id from conversation_participants WHERE user_id = $3)));"  
+      queryParams = [req.body.topicSelected, req.user.id, req.body.activeFriend, ];
+      const conversationMessages = await db.query(query, queryParams)
+      console.log(conversationMessages)
+      res.send(conversationMessages.rows)
     } catch(error) {
       res.send({"error": error.detail})
     }

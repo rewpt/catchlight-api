@@ -9,4 +9,10 @@ VALUES
 (9, 7, true),
 (6, 8, false),
 (8, 9, false),
-(7, 5, false);
+(7, 5, false),
+(2, 11, true),
+(6, 11, false),
+(2, 12, false),
+(6, 12, false),
+(2, 13, false),
+(4, 13, false);

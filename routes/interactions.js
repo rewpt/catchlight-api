@@ -48,7 +48,7 @@ module.exports = db => {
 
   router.post('/', authenticateToken, async (req, res) => {
     const user_id = req.user.id;
-    const media_id = ~~req.body.mediaId;
+    const media_id = parseInt(req.body.mediaID)
     const rating = req.body.rating;
     const queryParams = [rating, user_id, media_id]
 

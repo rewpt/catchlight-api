@@ -29,7 +29,7 @@ module.exports = db => {
   //Get friend reqs for a specific user
   router.get('/requests', authenticateToken, async function(req, res, next) {
     try {
-      const query = `SELECT friends.id, sending_user_id, users.name, users.email 
+      const query = `SELECT friends.id, sending_user_id, users.name, users.email, users.profile_picture
       FROM friends JOIN users ON users.id = friends.sending_user_id 
       WHERE friends.friendship_pending = true AND friends.recieving_user_id = $1`
       queryParams = [req.user.id];

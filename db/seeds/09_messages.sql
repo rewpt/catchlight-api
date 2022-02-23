@@ -11,8 +11,12 @@ VALUES
 (9, 2, 'Ok'),
 (2, 11, 'message1'),
 (6, 11, 'message2'),
+(2, 12, 'A message about Lost in Translation'),
+(6, 12, 'A reply about lost in translation'),
 (2, 13, 'Talking about resevoir dogs'),
-(4, 13, 'Yeah gr8 movie');
+(4, 13, 'Yeah gr8 movie'),
+(2, 8, 'when harry met sally comment'),
+(6, 8, 'when harry met sally reply');
 
 
 INSERT INTO messages (user_id, conversation_id, content, deleted)

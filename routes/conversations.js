@@ -16,13 +16,34 @@ module.exports = db => {
   });
 
   //Creates a new conversation
-  router.post('/', async function(req, res) {
-    const queryParams = [req.body.media_id];
-    const query = "INSERT INTO conversations (media_id) VALUES ($1) returning *";
+  router.post('/', authenticateToken, async function(req, res) {
+    const { mediaID, friendUserId, mediaTitle } = req.body;
+    const userId = req.user.id;
+    const greeting = `Hey! Let's talk about ${mediaTitle}`  
+
+    const convParams = [ mediaID ];
+    const convQuery = "INSERT INTO conversations (media_id) VALUES ($1) returning *;";
+    const convPartQuery = "INSERT INTO conversation_participants (user_id, conversation_id) VALUES($1, $2) returning *;"
+
     try {
-    const conversation = await db.query(query, queryParams);
-    res.json(conversation.rows);
-   } catch (err) {
+    const conversation = await db.query(convQuery, convParams);
+    const convId = conversation.rows[0].id;
+
+    const convPartParams1 = [ userId, convId ];
+    const conversationParticipants1 = await db.query(convPartQuery, convPartParams1);
+
+    const convPartParams2 = [ friendUserId, convId ];
+    const conversationParticipants2 = await db.query(convPartQuery, convPartParams2);
+
+    const messageParams = [ userId, convId, greeting ];
+    const messageQuery = `
+    INSERT INTO messages (user_id, conversation_id, content)
+    VALUES ($1, $2, $3);
+    `
+
+    const messageToFriend = await db.query(messageQuery, messageParams);
+    res.json('message sent!');
+  } catch (err) {
     res.send(err);
    }
   });

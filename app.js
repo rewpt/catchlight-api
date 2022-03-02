@@ -34,10 +34,7 @@ const isInWatchList = require('./routes/isInWatchList');
 const app = express();
 
 // middleware
-app.use(cors({
-  origin: '*',
-  credentials: true
-}));
+app.use(cors());
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));

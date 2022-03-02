@@ -35,7 +35,7 @@ const app = express();
 
 // middleware
 app.use(cors({
-  origin: 'true',
+  origin: '*',
   credentials: true
 }));
 app.use(logger('dev'));

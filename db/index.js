@@ -8,6 +8,4 @@ const db = new Client({
   }
 });
 
-client.connect();
-
 module.exports = db;

@@ -45,7 +45,7 @@ module.exports = db => {
     try {
       const refreshToken = req.cookies.refresh_token;
       if(refreshToken === null) return res.status(401).json({error:'Null refresh token'});
-      jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, (error, user) => {
+      jwt.verify(refreshToken, 'a3fa3waf3faw3fwaf3awf3wafa3wf3faw3far3ra2f3f3rfaf3af', (error, user) => {
         if(error) return res.status(403).json({error:error.message});
         let tokens = jwtTokens(user);
 

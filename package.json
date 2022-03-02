@@ -4,7 +4,8 @@
   "private": true,
   "proxy": "http://localhost:3001",
   "scripts": {
-    "start": "nodemon ./bin/www",
+    "nodemon:start": "nodemon ./bin/www",
+    "start": "./bin/www",
     "db:reset": "node db/resetdb.js"
   },
   "dependencies": {

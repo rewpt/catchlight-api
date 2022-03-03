@@ -23,8 +23,8 @@ module.exports = db => {
       // JWT
       let tokens = jwtTokens(users.rows[0]);
       console.log('TOKENS: ', tokens)
-      res.cookie('refresh_token', tokens.refreshToken, {httpOnly:true});
-      
+      res.cookie('refresh_token', tokens.refreshToken, {httpOnly:false});
+
       return res.json(tokens);
     } catch (e) {
       console.log(e)

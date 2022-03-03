@@ -13,7 +13,7 @@ module.exports = db => {
     const query = `SELECT * FROM users WHERE email = $1`;
     console.log('queryParams', queryParams)
     try {
-      console.log('tryblock entered')
+      console.log('tryblock entered and db log:', db)
       // USER CHECK
       const users = await db.query(query, queryParams);
       console.log('Users: ', users)

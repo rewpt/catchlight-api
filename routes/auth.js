@@ -11,10 +11,12 @@ module.exports = db => {
     const {email, password} = req.body;
     const queryParams = [email];
     const query = `SELECT * FROM users WHERE email = $1`;
- 
+    console.log('queryParams', queryParams)
     try {
+      console.log('tryblock entered')
       // USER CHECK
       const users = await db.query(query, queryParams);
+      console.log('Users: ', users)
       if (users.rows.length === 0) return res.status(401).json({error: "Email is incorrect"})
       // PASSWORD CHECK
       const validPassword = await bcrypt.compare(password, users.rows[0].password);

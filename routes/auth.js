@@ -11,7 +11,7 @@ module.exports = db => {
     const {email, password} = req.body;
     const queryParams = [email];
     const query = `SELECT * FROM users WHERE email = $1`;
-
+    console.log('login path hit');
     try {
       // USER CHECK
       const users = await db.query(query, queryParams);

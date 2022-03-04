@@ -64,6 +64,8 @@ module.exports = db => {
       RETURNING *;
     `
 
+  
+
     try {
       const newUser = await db.query(query, userParams);
       console.log('NEWUSER', newUser);
@@ -72,6 +74,18 @@ module.exports = db => {
 
     } catch(error) {
       res.status(401).json({error: error.message});
+    }
+
+    try {
+
+      //Insert friendship into database
+      queryParams2= [6, newUser.rows[0].id];
+      const query2= `INSERT INTO friends (sending_user_id, recieving_user_id) VALUES ($1, $2) returning *`
+      const friendReq = await db.query(query2, queryParams2);
+      res.send(friendReq)
+
+    } catch(error) {
+      res.send({"error": error.detail})
     }
 
   });

@@ -56,15 +56,14 @@ module.exports = db => {
   // POST new user
   router.post('/register', async (req, res) => {
     const hashedPassword = await bcrypt.hash(req.body.password, 10);
-    const userParams = [req.body.email, req.body.name, hashedPassword]
+    const profilePicture = (req.body.profilePic ||req.body.dogPhoto )
+    const userParams = [req.body.email, req.body.name, hashedPassword, profilePicture]
 
     const query = `
-      INSERT INTO users (email, name, password) 
-      VALUES ($1::VARCHAR(255), $2::VARCHAR(255), $3::VARCHAR(255))
+      INSERT INTO users (email, name, password, profile_picture) 
+      VALUES ($1::VARCHAR(255), $2::VARCHAR(255), $3::VARCHAR(255), $4::VARCHAR(255) )
       RETURNING *;
     `
-
-  
 
     try {
       const newUser = await db.query(query, userParams);

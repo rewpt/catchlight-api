@@ -66,6 +66,7 @@ module.exports = db => {
 
     try {
       const newUser = await db.query(query, userParams);
+      console.log('NEWUSER', newUser);
       if (newUser.rows.length === 0) return res.status(401).json({error: "Failed to create new user"})
       res.json({Users:newUser.rows[0]});
 

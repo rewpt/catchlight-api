@@ -56,7 +56,7 @@ module.exports = db => {
   // POST new user
   router.post('/register', async (req, res) => {
     const hashedPassword = await bcrypt.hash(req.body.password, 10);
-    const profilePicture = (req.body.profilePic ||req.body.dogPhoto )
+    const profilePicture = req.body.dogPhoto
     const userParams = [req.body.email, req.body.name, hashedPassword, profilePicture]
 
     const query = `

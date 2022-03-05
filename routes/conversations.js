@@ -20,6 +20,7 @@ module.exports = db => {
     const { mediaID, friendUserId, mediaTitle } = req.body;
     const userId = req.user.id;
     
+    try {
     const checkConvoQuery = `SELECT conversations.id FROM conversations JOIN conversation_participants on conversation_participants.conversation_id = conversations.id WHERE 
     conversation_participants.user_id = $1 AND conversation_participants.conversation_id IN
     (SELECT conversations.id FROM conversations 
@@ -28,7 +29,9 @@ module.exports = db => {
     const checkConvoParams = [userId, mediaID, friendUserId];
     const conversationCheck = await db.query(checkConvoQuery, checkConvoParams);
     res.send('this is the return from checking convo', conversationCheck);
-
+    }catch (err) {
+      console.log(err);
+    }
    
     const greeting = `Hey! Let's talk about ${mediaTitle}`  
 

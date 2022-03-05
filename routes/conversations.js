@@ -19,6 +19,17 @@ module.exports = db => {
   router.post('/', authenticateToken, async function(req, res) {
     const { mediaID, friendUserId, mediaTitle } = req.body;
     const userId = req.user.id;
+    
+    const checkConvoQuery = `SELECT conversations.id FROM conversations JOIN conversation_participants on conversation_participants.conversation_id = conversations.id WHERE 
+    conversation_participants.user_id = $1 AND conversation_participants.conversation_id IN
+    (SELECT conversations.id FROM conversations 
+    JOIN conversation_participants on conversations.id = conversation_participants.conversation_id 
+    WHERE conversations.media_id= $2 AND user_id = $3); `
+    const checkConvoParams = [userId, mediaID, friendUserId];
+    const conversationCheck = await db.query(checkConvoQuery, checkConvoParams);
+    res.send('this is the return from checking convo', conversationCheck);
+
+   
     const greeting = `Hey! Let's talk about ${mediaTitle}`  
 
     const convParams = [ mediaID ];

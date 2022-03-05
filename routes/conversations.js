@@ -33,7 +33,7 @@ module.exports = db => {
     try {
       const conversationCheck = await db.query(checkConvoQuery, checkConvoParams);
       if(conversationCheck.rows[0]) {
-        res.end()
+        return res.end()
       }
       try {
         const conversation = await db.query(convQuery, convParams);

@@ -32,7 +32,7 @@ module.exports = db => {
     const convPartQuery = "INSERT INTO conversation_participants (user_id, conversation_id) VALUES($1, $2) returning *;"
     try {
     const conversationCheck = await db.query(checkConvoQuery, checkConvoParams);
-    res.json(conversationCheck);
+    if(!conversationCheck.rows[0]) {
    
     try {
       const conversation = await db.query(convQuery, convParams);
@@ -55,6 +55,7 @@ module.exports = db => {
     } catch (err) {
       res.send(err);
     }}
+  }
    catch (err) {
     console.log(err);
   }

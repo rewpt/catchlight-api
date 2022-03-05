@@ -31,32 +31,30 @@ module.exports = db => {
     const convQuery = "INSERT INTO conversations (media_id) VALUES ($1) returning *;";
     const convPartQuery = "INSERT INTO conversation_participants (user_id, conversation_id) VALUES($1, $2) returning *;"
     try {
-
-    
     const conversationCheck = await db.query(checkConvoQuery, checkConvoParams);
     res.json(conversationCheck);
    
     try {
-    const conversation = await db.query(convQuery, convParams);
-    const convId = conversation.rows[0].id;
+      const conversation = await db.query(convQuery, convParams);
+      const convId = conversation.rows[0].id;
 
-    const convPartParams1 = [ userId, convId ];
-    const conversationParticipants1 = await db.query(convPartQuery, convPartParams1);
+      const convPartParams1 = [ userId, convId ];
+      const conversationParticipants1 = await db.query(convPartQuery, convPartParams1);
 
-    const convPartParams2 = [ friendUserId, convId ];
-    const conversationParticipants2 = await db.query(convPartQuery, convPartParams2);
+      const convPartParams2 = [ friendUserId, convId ];
+      const conversationParticipants2 = await db.query(convPartQuery, convPartParams2);
 
-    const messageParams = [ userId, convId, greeting ];
-    const messageQuery = `
-    INSERT INTO messages (user_id, conversation_id, content)
-    VALUES ($1, $2, $3);
-    `
+      const messageParams = [ userId, convId, greeting ];
+      const messageQuery = `
+      INSERT INTO messages (user_id, conversation_id, content)
+      VALUES ($1, $2, $3);
+      `
 
-    const messageToFriend = await db.query(messageQuery, messageParams);
-    res.json('message sent!');
-  } catch (err) {
-    res.send(err);
-   }
+      const messageToFriend = await db.query(messageQuery, messageParams);
+      res.json('message sent!');
+    } catch (err) {
+      res.send(err);
+    }}
    catch (err) {
     console.log(err);
   }

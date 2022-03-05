@@ -19,26 +19,23 @@ module.exports = db => {
   router.post('/', authenticateToken, async function(req, res) {
     const { mediaID, friendUserId, mediaTitle } = req.body;
     const userId = req.user.id;
-    
-    try {
     const checkConvoQuery = `SELECT conversations.id FROM conversations JOIN conversation_participants on conversation_participants.conversation_id = conversations.id WHERE 
     conversation_participants.user_id = $1 AND conversation_participants.conversation_id IN
     (SELECT conversations.id FROM conversations 
     JOIN conversation_participants on conversations.id = conversation_participants.conversation_id 
     WHERE conversations.media_id= $2 AND user_id = $3); `
     const checkConvoParams = [userId, mediaID, friendUserId];
-    const conversationCheck = await db.query(checkConvoQuery, checkConvoParams);
-    res.send('this is the return from checking convo', conversationCheck);
-    }catch (err) {
-      console.log(err);
-    }
-   
     const greeting = `Hey! Let's talk about ${mediaTitle}`  
 
     const convParams = [ mediaID ];
     const convQuery = "INSERT INTO conversations (media_id) VALUES ($1) returning *;";
     const convPartQuery = "INSERT INTO conversation_participants (user_id, conversation_id) VALUES($1, $2) returning *;"
+    try {
 
+    
+    const conversationCheck = await db.query(checkConvoQuery, checkConvoParams);
+    res.json(conversationCheck);
+   
     try {
     const conversation = await db.query(convQuery, convParams);
     const convId = conversation.rows[0].id;
@@ -60,6 +57,10 @@ module.exports = db => {
   } catch (err) {
     res.send(err);
    }
+   catch (err) {
+    console.log(err);
+  }
+
   });
 
   // Modifies a particular conversation
@@ -72,6 +73,7 @@ module.exports = db => {
    } catch (err) {
     res.send(err);
    }
+
   });
 
   //Creates a new message
